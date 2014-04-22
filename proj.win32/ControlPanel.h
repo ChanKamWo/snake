@@ -14,7 +14,7 @@ using std::pair;
 USING_NS_CC;
 class ControlPanel : public CCLayer{
 private:
-	int key = -1;
+	int key;
 #if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)   
 	void detectKeyBoard(float interval);
 #else

@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "../proj.win32/GameController.h"
+#include "GameController.h"
 
 USING_NS_CC;
 
@@ -22,7 +22,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     pDirector->setDisplayStats(true);
 
     // set FPS. the default value is 1.0/60 if you don't call this
-    pDirector->setAnimationInterval(1.0 / 60);
+    pDirector->setAnimationInterval(1.0 / 20);
 
     // run
 	GameController::getInstance()->launchGame();

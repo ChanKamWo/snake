@@ -61,7 +61,7 @@ void GameField::addSnakeToBoard(Snake* pSnake){
 
 void GameField::startGame(){
 	genFood();
-	schedule(schedule_selector(GameField::moveMarsSnake), 0.1);
+	schedule(schedule_selector(GameField::moveMarsSnake), 0.15);
 	schedule(schedule_selector(GameField::moveEarthSnake), 0.3);
 }
 
@@ -75,7 +75,7 @@ void GameField::moveMarsSnake(float interval){
 	}
 	else if (nextDir >= 4){//×²ËÀ
 		nextDir -= 4;
-	//	GameController::getInstance()->endGame();
+		GameController::getInstance()->endGame(true);
 	}
 	marsSnake->move(nextDir);
 }
@@ -89,7 +89,7 @@ void GameField::moveEarthSnake(float interval){
 	}
 	else if (nextDir >= 4){//×²ËÀ
 		nextDir -= 4;
-		GameController::getInstance()->endGame();
+		GameController::getInstance()->endGame(false);
 	}
 	earthSnake->move(nextDir);
 }
@@ -100,7 +100,6 @@ void GameField::genFood(){
 		y = nrand(MAP_MAX_Y);
 	}while(blackBoard.getGrid(x, y) != '_');
 	food = new Food();
-	x = 7, y = 3;
 	food->setTiledPos(ccp(x, y));
 	blackBoard.setGrid(x, y, 'F');	
 	addChild(food->getSprite());

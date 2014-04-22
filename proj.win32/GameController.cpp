@@ -2,6 +2,7 @@
 #include "GameScene.h"
 #include "GameOverScene.h"
 #include "WelcomeScene.h"
+#include "GameWinScene.h"
 
 GameController* GameController::pGameController = NULL;
 
@@ -22,9 +23,15 @@ void GameController::updateScore(string text){
 	((GameScene*)gameScene)->updateText(text);
 }
 
-void GameController::endGame(){
-	gameOverScene = GameOverScene::create();
-	CCDirector::sharedDirector()->replaceScene(gameOverScene);
+void GameController::endGame(bool winOrLose){
+	
+	if (winOrLose){
+		endScene = GameWinScene::create();
+	}
+	else{
+		endScene = GameOverScene::create();
+	}
+	CCDirector::sharedDirector()->replaceScene(endScene);
 }
 
 void GameController::startGame(){

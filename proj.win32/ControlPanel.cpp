@@ -4,6 +4,7 @@
 bool ControlPanel::init(){
 	if (!CCLayer::init())
 		return false;
+	key = -1;
 #if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)   
 	schedule(schedule_selector(ControlPanel::detectKeyBoard), 0.1);
 #else
@@ -24,6 +25,7 @@ bool ControlPanel::init(){
 	return true;
 }
 
+#if(CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)   
 void ControlPanel::detectKeyBoard(float interval){
 	if (KEY_DOWN(VK_UP))
 		key = 3;
@@ -34,6 +36,7 @@ void ControlPanel::detectKeyBoard(float interval){
 	else if (KEY_DOWN(VK_RIGHT))
 		key = 0;
 }
+#endif
 
 int ControlPanel::getNextDirection(){
 	int temp = key;

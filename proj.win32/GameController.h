@@ -13,14 +13,14 @@ public:
 	void exitGame();
 	void startGame();
 	void pauseGame();
-	void endGame();
+	void endGame(bool winOrLose);
 	static GameController* getInstance();
 	int getNextDirection();
 	void updateScore(string text);
 
 private:
 	static GameController* pGameController;
-	CCScene *gameScene, *gameOverScene;
+	CCScene *gameScene, *endScene;
 };
 
 #endif
