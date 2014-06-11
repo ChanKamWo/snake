@@ -7,41 +7,49 @@ AppDelegate::AppDelegate() {
 
 }
 
-AppDelegate::~AppDelegate() 
+AppDelegate::~AppDelegate()
 {
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
-    CCDirector* pDirector = CCDirector::sharedDirector();
-    CCEGLView* pEGLView = CCEGLView::sharedOpenGLView();
+    auto director = Director::getInstance();
+    auto glview = director->getOpenGLView();
+    if ( !glview ) {
+        glview = GLView::create( "My Game" );
+        director->setOpenGLView( glview );
+    }
 
-    pDirector->setOpenGLView(pEGLView);
-	
+    glview->setViewName( "snake" );
+    glview->setFrameSize( 800, 480 );
+
     // turn on display FPS
-    pDirector->setDisplayStats(true);
+    director->setDisplayStats( true );
 
     // set FPS. the default value is 1.0/60 if you don't call this
-    pDirector->setAnimationInterval(1.0 / 20);
+    director->setAnimationInterval( 1.0 / 60 );
+
+    // create a scene. it's an autorelease object
+    //auto scene = HelloWorld::createScene();
 
     // run
-	GameController::getInstance()->launchGame();
-
+    //director->runWithScene(scene);
+    GameController::getInstance()->launch();
     return true;
 }
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
 void AppDelegate::applicationDidEnterBackground() {
-    CCDirector::sharedDirector()->stopAnimation();
+    Director::getInstance()->stopAnimation();
 
     // if you use SimpleAudioEngine, it must be pause
-    // SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+    // SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 }
 
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground() {
-    CCDirector::sharedDirector()->startAnimation();
+    Director::getInstance()->startAnimation();
 
     // if you use SimpleAudioEngine, it must resume here
-    // SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+    // SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }
